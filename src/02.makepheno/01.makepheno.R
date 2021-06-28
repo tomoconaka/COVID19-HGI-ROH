@@ -8,8 +8,8 @@ results_kb <- function(class)  {
              "Froh"=(sum(this_iids_roh$KB[this_iids_roh$KB>=1500]))/2881033)
   return(my_list) }
 
-files_list <- c("EUR.fimm.hom.indiv", "EUR.brasil.hom.indiv", "EUR.canada.hom.indiv", 
-                "EUR.kiel.hom.indiv", "EUR.spain_alarcon.hom.indiv", "EUR.spain_planas.hom.indiv"
+files_list <- c("EUR.fimm.hom", "EUR.brasil.hom", "EUR.canada.hom", 
+                "EUR.kiel.hom", "EUR.spain_alarcon.hom", "EUR.spain_planas.hom"
                 )
 dat <- data.frame()                          
 for (i in 1:length(files_list)) {

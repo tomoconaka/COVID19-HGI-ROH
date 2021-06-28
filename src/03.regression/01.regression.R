@@ -1,6 +1,9 @@
 setwd("/home/tomoko/scratch/ROH/")
 data <- readRDS("pheno_roh.rds")
 
+data %>% group_by(study) %>% 
+  summarise(median=median(Froh))
+
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
 df_roh_pheno <- df_roh_pheno %>% filter(A2 %in% c(1,0))
 
@@ -21,7 +24,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = T, row.names = F)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = T, row.names = F, sep="\t")
 
 mod_1<-glm(A2~Froh+Fhat1+age_at_diagnosis+sex+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -37,7 +40,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(B2~Froh+Fhat3+age_at_diagnosis+sex+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -53,7 +56,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(A2~Froh+Fhat3+age_at_diagnosis+sex+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -69,7 +72,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 #INBREEDING DEPRESSION ANALYSIS MEN -------
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
@@ -88,7 +91,7 @@ res$Estimate <- mod_coef[,1]
 res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 
 mod_1<-glm(A2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
@@ -105,7 +108,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(B2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -121,7 +124,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(A2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -137,7 +140,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 
 #INBREEDING DEPRESSION ANALYSIS WOMEN -------
@@ -158,7 +161,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 
 mod_1<-glm(A2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
@@ -175,7 +178,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(B2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -191,7 +194,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(A2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -207,7 +210,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 #INBREEDING DEPRESSION ANALYSIS YOUNG MEN -------
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
@@ -227,7 +230,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 
 mod_1<-glm(A2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
@@ -244,7 +247,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(B2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -260,7 +263,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(A2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -276,7 +279,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 #INBREEDING DEPRESSION ANALYSIS OLD MEN -------
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
@@ -296,7 +299,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(A2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -312,7 +315,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(B2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -328,7 +331,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(A2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -344,7 +347,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 #INBREEDING DEPRESSION ANALYSIS YOUNG WOMEN -------
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
@@ -364,7 +367,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 
 mod_1<-glm(A2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
@@ -381,7 +384,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T,sep="\t")
 
 mod_1<-glm(B2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -397,7 +400,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T,sep="\t")
 
 mod_1<-glm(A2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -413,7 +416,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 #INBREEDING DEPRESSION ANALYSIS OLD WOMEN -------
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
@@ -433,7 +436,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(A2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -449,7 +452,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(B2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -465,7 +468,7 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
 
 mod_1<-glm(A2~Froh+Fhat3+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -481,4 +484,4 @@ res$P_val <- mod_coef[,4]
 res$ci_min <- res$Estimate + qnorm(0.025)*mod_coef[,2]
 res$ci_max <- res$Estimate + qnorm(0.975)*mod_coef[,2]
 
-write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T)
+write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F, append=T, sep="\t")
