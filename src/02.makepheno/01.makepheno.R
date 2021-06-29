@@ -9,7 +9,7 @@ results_kb <- function(class)  {
   return(my_list) }
 
 files_list <- c("EUR.fimm.hom", "EUR.brasil.hom", "EUR.canada.hom", 
-                "EUR.kiel.hom", "EUR.spain_alarcon.hom", "EUR.spain_planas.hom"
+                "EUR.kiel.hom", "EUR.spain_alarcon.hom", "EUR.spain_planas.hom", "EUR.germany_ludwig.hom"
                 )
 dat <- data.frame()                          
 for (i in 1:length(files_list)) {
@@ -36,7 +36,8 @@ results$IID<-results$levels.dat.IID.
 results[results==0] <- NA
 
 files_list <- c("EUR.fimm.ibc", "EUR.brasil.ibc", "EUR.canada.ibc", 
-                "EUR.kiel.ibc", "EUR.spain_alarcon.ibc", "EUR.spain_planas.ibc")
+                "EUR.kiel.ibc", "EUR.spain_alarcon.ibc", "EUR.spain_planas.ibc",
+                "EUR.germany_ludwig.ibc")
                 
 dat <- data.frame()                          
 for (i in 1:length(files_list)) {
@@ -79,7 +80,12 @@ map <- fread("/home/tomoko/covid19-hgi-clinical-values/EGA/results/INMUNGEN_CoV2
   mutate(anonymized_patient_id = paste0("SP_",str_split(V2, ".CEL",simplify=TRUE)[,1]))
 spain_planas <- map %>% rename(genotypeID = V2) %>% select(anonymized_patient_id, genotypeID)
 
-map <- bind_rows(fimm, kiel, canada, spain_planas, spain_alarcon)
+#germany_ludwig
+map <- fread("/home/tomoko/covid19-hgi-clinical-values/hgi_germany_ludwig/geno/BOSCO_rev.fam") %>% 
+  mutate(anonymized_patient_id = paste0("GL_",str_split(V2, ".CEL",simplify=TRUE)[,1]))
+germany_ludwig <- map %>% rename(genotypeID = V2) %>% select(anonymized_patient_id, genotypeID)
+
+map <- bind_rows(fimm, kiel, canada, spain_planas, spain_alarcon, germany_ludwig)
 
 results <- results %>% merge(map, by.x="IID", by.y="genotypeID")
 

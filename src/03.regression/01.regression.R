@@ -5,7 +5,8 @@ data %>% group_by(study) %>%
   summarise(median=median(Froh))
 
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
-df_roh_pheno <- df_roh_pheno %>% filter(A2 %in% c(1,0))
+df_roh_pheno <- df_roh_pheno %>% mutate_at(.vars = c("A2", "B2"), .funs = funs(ifelse(.==-1,NA,.))) %>% drop_na(c(Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10))
+
 
 #################################################
 #INBREEDING DEPRESSION ANALYSIS ALL TOGETHER -------
@@ -76,7 +77,8 @@ write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F,
 
 #INBREEDING DEPRESSION ANALYSIS MEN -------
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
-df_roh_pheno <- df_roh_pheno %>% filter(A2 %in% c(1,0)) %>% filter(sex == 0)
+df_roh_pheno <- df_roh_pheno %>% mutate_at(.vars = c("A2", "B2"), .funs = funs(ifelse(.==-1,NA,.))) %>% drop_na(c(Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10))
+df_roh_pheno <- df_roh_pheno %>% filter(sex == 0)
 
 mod_1<-glm(B2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -145,7 +147,8 @@ write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F,
 
 #INBREEDING DEPRESSION ANALYSIS WOMEN -------
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
-df_roh_pheno <- df_roh_pheno %>% filter(A2 %in% c(1,0)) %>% filter(sex == 1)
+df_roh_pheno <- df_roh_pheno %>% mutate_at(.vars = c("A2", "B2"), .funs = funs(ifelse(.==-1,NA,.))) %>% drop_na(c(Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10))
+df_roh_pheno <- df_roh_pheno %>% filter(sex == 1)
 
 mod_1<-glm(B2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -214,7 +217,8 @@ write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F,
 
 #INBREEDING DEPRESSION ANALYSIS YOUNG MEN -------
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
-df_roh_pheno <- df_roh_pheno %>% filter(A2 %in% c(1,0)) %>% filter(sex == 0) %>% filter(age_at_diagnosis <= 60)
+df_roh_pheno <- df_roh_pheno %>% mutate_at(.vars = c("A2", "B2"), .funs = funs(ifelse(.==-1,NA,.))) %>% drop_na(c(Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10))
+df_roh_pheno <- df_roh_pheno %>% filter(sex == 0 & age_at_diagnosis <= 60) 
 
 mod_1<-glm(B2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -283,7 +287,8 @@ write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F,
 
 #INBREEDING DEPRESSION ANALYSIS OLD MEN -------
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
-df_roh_pheno <- df_roh_pheno %>% filter(A2 %in% c(1,0)) %>% filter(sex == 0) %>% filter(age_at_diagnosis > 60)
+df_roh_pheno <- df_roh_pheno %>% mutate_at(.vars = c("A2", "B2"), .funs = funs(ifelse(.==-1,NA,.))) %>% drop_na(c(Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10))
+df_roh_pheno <- df_roh_pheno %>% filter(sex == 0 & age_at_diagnosis > 60) 
 
 mod_1<-glm(B2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -351,7 +356,8 @@ write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F,
 
 #INBREEDING DEPRESSION ANALYSIS YOUNG WOMEN -------
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
-df_roh_pheno <- df_roh_pheno %>% filter(A2 %in% c(1,0)) %>% filter(sex == 1) %>% filter(age_at_diagnosis <= 60)
+df_roh_pheno <- df_roh_pheno %>% mutate_at(.vars = c("A2", "B2"), .funs = funs(ifelse(.==-1,NA,.))) %>% drop_na(c(Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10))
+df_roh_pheno <- df_roh_pheno %>% filter(sex == 1 & age_at_diagnosis <= 60) 
 
 mod_1<-glm(B2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]
@@ -420,7 +426,8 @@ write.table(res, file="roh_analyses.tsv", quote=F, col.names = F, row.names = F,
 
 #INBREEDING DEPRESSION ANALYSIS OLD WOMEN -------
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
-df_roh_pheno <- df_roh_pheno %>% filter(A2 %in% c(1,0)) %>% filter(sex == 1) %>% filter(age_at_diagnosis > 60)
+df_roh_pheno <- df_roh_pheno %>% mutate_at(.vars = c("A2", "B2"), .funs = funs(ifelse(.==-1,NA,.))) %>% drop_na(c(Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10))
+df_roh_pheno <- df_roh_pheno %>% filter(sex == 1 & age_at_diagnosis > 60) 
 
 mod_1<-glm(B2~Froh+Fhat1+age_at_diagnosis+PC1+PC2+PC3+PC4+PC5+PC6+PC7+PC8+PC9+PC10+nation, dat = df_roh_pheno, family = binomial);summary(mod_1)
 mod_coef<-coef(summary(mod_1)); mod_coef<-mod_coef[-1,]

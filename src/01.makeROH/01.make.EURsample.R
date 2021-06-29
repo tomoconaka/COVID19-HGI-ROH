@@ -41,6 +41,12 @@ spain_planas <- map %>% filter(anonymized_patient_id %in% final$anonymized_patie
 write.table(cbind(0, spain_planas$V2), file="/home/tomoko/scratch/ROH/EUR.spain_planas.sample",
             quote=F, col.names = F, row.names = F)
 
+#germany_ludwig
+map <- fread("/home/tomoko/covid19-hgi-clinical-values/hgi_germany_ludwig/geno/BOSCO_rev.fam") %>% 
+  mutate(anonymized_patient_id = paste0("GL_",str_split(V2, ".CEL",simplify=TRUE)[,1]))
+germany_ludwig <- map %>% filter(anonymized_patient_id %in% final$anonymized_patient_id)
+write.table(cbind(0, germany_ludwig$V2), file="/home/tomoko/scratch/ROH/EUR.germany_ludwig.sample",
+            quote=F, col.names = F, row.names = F)
 
 
 
