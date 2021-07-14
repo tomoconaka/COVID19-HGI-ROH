@@ -1,8 +1,15 @@
 setwd("/home/tomoko/scratch/ROH/")
 data <- readRDS("pheno_roh.rds")
 
+data %>% filter(B2 != -1) %>% group_by(B2) %>% 
+  summarise(median=median(Froh),
+            lower_IQR = quantile(Froh)[2],
+            higher_IQR = quantile(Froh)[4])
+
 data %>% group_by(study) %>% 
-  summarise(median=median(Froh))
+  summarise(median=median(Froh),
+            lower_IQR = quantile(Froh)[2],
+            higher_IQR = quantile(Froh)[4])
 
 df_roh_pheno <- data %>% select(A2, B2, Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10)
 df_roh_pheno <- df_roh_pheno %>% mutate_at(.vars = c("A2", "B2"), .funs = funs(ifelse(.==-1,NA,.))) %>% drop_na(c(Froh, Fhat1, Fhat3, age_at_diagnosis, sex, nation, PC1, PC2, PC3, PC4, PC5, PC6, PC7, PC8, PC9, PC10))
